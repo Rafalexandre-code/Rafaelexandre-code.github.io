@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rota1</title>
+    <title>Rota2</title>
 </head>
 <body>
-    <h1 id="h1">Rota1</h1>
+    <h1 id="h1">Rota2</h1>
     <h2 id="h2">sei lá</h2>
     <form action="" method="" id="form">
         <input type="text" id="input">
@@ -29,11 +29,10 @@
         });
 
         socket.on('hello', (arg) => {
-            document.getElementById('h1').innerHTML = arg;
-            socket.emit('jogo', "Eu so transmito coisas!");
+            document.getElementById('h1').innerHTML = arg; 
         });
 
-        socket.on('novojogo', (arg) => {
+        socket.on('controle', (arg) => {
             document.getElementById('h2').innerHTML = arg;
         });
     </script>
