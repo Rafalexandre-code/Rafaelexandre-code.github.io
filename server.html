@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    servidor
+    <button id="btncriar">Iniciar</button>
+</body>
+<script>
+    let ws = new WebSocket("ws://localhost:9090");
+
+    //resgata do botão
+    const btncriar = document.getElementById("btncriar");
+        //adiciona um evento
+        btncriar.addEventListener("click", e=>{
+        const payLoad ={
+            "methodo":"novojogo",
+            "idcliente": 0
+        }
+        //manda coisas para o servidor
+        ws.send(JSON.stringify(payLoad))
+    })
+
+    //recebe mensagem do servidor
+    ws.onmessage = message => {
+      //mensagem.data
+      const resposta = JSON.parse(message.data);
+      //cliente
+      if(resposta.methodo === "connect"){
+        idcliente=resposta.idcliente;
+        console.log("id do cliente adquirido com sucesso!" + idcliente);
+      }
+      //jogo
+      if(resposta.methodo === "novojogo"){
+        idjogo=resposta.jogo.id;
+        console.log("id do jogo adquirido com sucesso!" + idjogo);
+
+        //while true
+        const payLoad = {
+          "methodo": "jogando",
+          "posição": 1
+        }
+      ws.send(JSON.stringify(payLoad))
+      }
+    }
+</script>
+</html>

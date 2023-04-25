@@ -17,48 +17,48 @@
   </body>
 <script>
   let idcliente = null;
- let ws = new WebSocket("ws://localhost:9090")
+  let ws = new WebSocket("ws://localhost:9090")
 
- //resgata do botão
- const btncriar = document.getElementById("btncriar");
-  //adiciona um evento
-  btncriar.addEventListener("click", e=>{
-    const payLoad ={
-      "methodo":"novojogo",
-      "idcliente": idcliente
-    }
-    //manda coisas para o servidor
-    ws.send(JSON.stringify(payLoad))
-  })
-  
-
-
-  //recebe mensagem do servidor
-  ws.onmessage = message => {
-    //mensagem.data
-    const resposta = JSON.parse(message.data);
-    //cliente
-    if(resposta.methodo ==="connect"){
-      idcliente=resposta.idcliente;
-      console.log("id do cliente adquirido com suscesso!" + idcliente);
-    }
-    //jogo
-    if(resposta.methodo ==="novojogo"){
-      idjogo=resposta.jogo.id;
-      console.log("id do jogo adquirido com suscesso!" + idjogo);
-
-      //while true
-      const payLoad={
-        "methodo":"jogando",
-        "posição": 1
+  //resgata do botão
+  const btncriar = document.getElementById("btncriar");
+    //adiciona um evento
+    btncriar.addEventListener("click", e=>{
+      const payLoad ={
+        "methodo":"novojogo",
+        "idcliente": 1
       }
-    ws.send(JSON.stringify(payLoad))
+      //manda coisas para o servidor
+      ws.send(JSON.stringify(payLoad))
+    })
+    
+
+
+    //recebe mensagem do servidor
+    ws.onmessage = message => {
+      //mensagem.data
+      const resposta = JSON.parse(message.data);
+      //cliente
+      if(resposta.methodo ==="connect"){
+        idcliente=resposta.idcliente;
+        console.log("id do cliente adquirido com sucesso!" + idcliente);
+      }
+      //jogo
+      if(resposta.methodo ==="novojogo"){
+        idjogo=resposta.jogo.id;
+        console.log("id do jogo adquirido com sucesso!" + idjogo);
+
+        //while true
+        const payLoad={
+          "methodo":"jogando",
+          "posição": 1
+        }
+      ws.send(JSON.stringify(payLoad))
+      }
     }
-  }
 
 
-//jogo
- 
+  //jogo
+  
 
 </script>
 </html>
