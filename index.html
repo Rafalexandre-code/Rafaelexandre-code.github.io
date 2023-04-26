@@ -33,7 +33,7 @@
             socket.emit('jogo', "Eu so transmito coisas!");
         });
 
-        socket.on('novojogo', (arg) => {
+        socket.on('controle', (arg) => {
             document.getElementById('h2').innerHTML = arg;
         });
     </script>
