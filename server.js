@@ -15,18 +15,20 @@ app.get('/tela', (req, res2) => {
 });
 
 io.on('connection', (socket) => {
+  
   console.log('usuário conectado');
   socket.on('chat message', (msg) => {
     io.emit('hello', msg);
   });
+
   socket.on('disconnect', () => {
     console.log('usuário desconectado');
   });
 
-  socket.on('jogo', () => {
-    io.emit('novojogo', "toma ai! eu apenas mostro as coisas");
-    io.emit('controle', "toma ai! eu sou apenas o controle!");
+  socket.on('gamma', (gamma) => {
+    io.emit('coordenada', gamma);
   });
+
 });
 
 server.listen(porta1, () => {

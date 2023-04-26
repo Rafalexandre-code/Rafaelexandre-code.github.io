@@ -5,20 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rota2</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        canvas {
+            border: solid 1px black;
+        }
+    </style>
 </head>
 <body>
-    <h1 id="h1">Tela</h1>
-    <h2 id="h2">sei lá</h2>
+    <canvas id="canvas" width="630" height="300"></canvas>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
 
-        socket.on('hello', (arg) => {
-            document.getElementById('h1').innerHTML = arg; 
-        });
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var canvasWidth = canvas.width;
+        var canvasHeight = canvas.height;
 
-        socket.on('novojogo', (arg) => {
-            document.getElementById('h2').innerHTML = arg;
+        var xBase = 270;
+        var yBase = 290;
+        var baseWidth = 90;
+        var baseHeight = 10;
+
+        function desenhaBase() {
+            ctx.beginPath();
+            ctx.rect(xBase, yBase, baseWidth, baseHeight);
+            ctx.fillStyle = "#00baff";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function desenha() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight); //limpa o canvas
+            desenhaBase();
+        }
+
+        setInterval(desenha, 10);
+
+        var center = (canvasWidth / 2) - (baseWidth / 2);
+
+        function movimentaBase(gamma) {
+            xBase = center + (gamma.toFixed(0) * 3);
+            console.log(xBase);
+            console.log(gamma.toFixed(2));
+            if(gamma == 90){
+            xBase = canvasWidth - baseWidth;
+            }
+        }
+
+        socket.on('coordenada', (arg) => {
+            movimentaBase(arg);
         });
     </script>
 </body>

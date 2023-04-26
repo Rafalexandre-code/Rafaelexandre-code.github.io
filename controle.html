@@ -9,32 +9,15 @@
 <body>
     <h1 id="h1">Controle</h1>
     <h2 id="h2">sei lá</h2>
-    <form action="" method="" id="form">
-        <input type="text" id="input">
-        <button>Clique aqui</button>
-    </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
+        
+        var gamma = 0;
 
-        var form = document.getElementById('form');
-        var input = document.getElementById('input');
-
-        form.addEventListener('submit', function(event){
-            event.preventDefault();
-            if(input.value){
-                socket.emit('chat message', input.value);
-                input.value = "";
-            }
-        });
-
-        socket.on('hello', (arg) => {
-            document.getElementById('h1').innerHTML = arg;
-            socket.emit('jogo', "Eu so transmito coisas!");
-        });
-
-        socket.on('controle', (arg) => {
-            document.getElementById('h2').innerHTML = arg;
+        window.addEventListener('deviceorientation', (e) => {
+            gamma = e.gamma;
+            socket.emit('gamma', gamma);
         });
     </script>
 </body>
