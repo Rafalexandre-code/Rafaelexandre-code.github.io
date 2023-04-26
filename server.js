@@ -8,10 +8,10 @@ const io = new Server(server);
 const porta1 = 9091;
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/controle.html');
 });
-app.get('/in', (req, res2) => {
-  res2.sendFile(__dirname + '/index2.html');
+app.get('/tela', (req, res2) => {
+  res2.sendFile(__dirname + '/tela.html');
 });
 
 io.on('connection', (socket) => {
