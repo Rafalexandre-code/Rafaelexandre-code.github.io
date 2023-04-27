@@ -1,9 +1,16 @@
 const express = require('express');
+const fs = require('fs')
 const app = express();
-const http = require('http');
-const server = http.createServer(app);
+const http = require('https');
+//const server = http.createServer(app);
+
+ const server = http.createServer({
+   key: fs.readFileSync('C:/laragon/etc/ssl/laragon.key'),
+   cert: fs.readFileSync('C:/laragon/etc/ssl/laragon.crt')
+ },app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+
 
 const porta1 = 9091;
 
@@ -26,6 +33,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('gamma', (gamma) => {
+    console.log(gamma)
     io.emit('coordenada', gamma);
   });
 
