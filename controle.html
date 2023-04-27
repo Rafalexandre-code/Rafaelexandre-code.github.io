@@ -13,11 +13,11 @@
     <script>
         var socket = io();
         
-        var gamma = 0;
+        var beta = 0;
 
         window.addEventListener('deviceorientation', (e) => {
-            gamma = e.gamma;
-            socket.emit('gamma', gamma);
+            beta = e.beta;
+            socket.emit('beta', beta);
         });
     </script>
 </body>

@@ -4,10 +4,11 @@ const app = express();
 const http = require('https');
 //const server = http.createServer(app);
 
- const server = http.createServer({
+const server = http.createServer({
    key: fs.readFileSync('C:/laragon/etc/ssl/laragon.key'),
    cert: fs.readFileSync('C:/laragon/etc/ssl/laragon.crt')
- },app);
+ },app); 
+
 const { Server } = require("socket.io");
 const io = new Server(server);
 
@@ -32,9 +33,9 @@ io.on('connection', (socket) => {
     console.log('usuário desconectado');
   });
 
-  socket.on('gamma', (gamma) => {
-    console.log(gamma)
-    io.emit('coordenada', gamma);
+  socket.on('beta', (beta) => {
+    console.log(beta)
+    io.emit('coordenada', beta);
   });
 
 });
